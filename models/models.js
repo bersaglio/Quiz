@@ -35,20 +35,19 @@ exports.Quiz = Quiz;
 
 
 
-
-//PÁGINA 102 ¿HAY QUE CAMBIAR SUCESS (PÁGINA85) POR THEN (PÁGINA102)?
-
-
 // sequelize.sync() crea las tablas de datos definidas en el modelo
-sequelize.sync().success(function() {
+sequelize.sync().then(function() {
   // success(..) ejecuta el manejador una vez creadas las tabas de la DB
-  Quiz.count().success(function (count){
+  Quiz.count().then(function (count){
     if(count === 0) {   // la tabla se inicializa solo si está vacía
       Quiz.create({ pregunta: '¿Cual es la capital de Italia?',
       	            respuesta: 'Roma'
       	         });
+      Quiz.create({ pregunta: '¿Cual es la capital de Portugal?',
+                    respuesta: 'Lisboa'
+                 });
        
-      .success(function(){console.log('Base de datos inicializada')});
+      .then(function(){console.log('Base de datos inicializada')});
     };
   });
 });
