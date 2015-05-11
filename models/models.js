@@ -43,9 +43,36 @@ sequelize.sync().then(function() {
       Quiz.create({ pregunta: '¿Cual es la capital de Italia?',
       	            respuesta: 'Roma'
       	         });
+      Quiz.create({ pregunta: '¿Cuántas manos tiene un caballo?',
+                    respuesta: 'Dos'
+                 });
+      Quiz.create({ pregunta: '¿Qué instrumento musical tiene nombre y forma geométricos?',
+                    respuesta: 'Triángulo'
+                 });
+      Quiz.create({ pregunta: '¿Cuáles son las dos primeras palabras de la Biblia?',
+                    respuesta: 'Al principio'
+                 });
+      Quiz.create({ pregunta: '¿Quién escribió "El Diario de Ana Frank"?',
+                    respuesta: 'Ana Frank'
+                 });
+      Quiz.create({ pregunta: '¿Cómo se llaman las crías de la mula?',
+                    respuesta: 'No tiene'
+                 });
+      Quiz.create({ pregunta: '¿Qué isla del Caribe tiene nombre de flor?',
+                    respuesta: 'Margarita'
+                 });
+      Quiz.create({ pregunta: '¿Con qué nombre firmaba Pablo Picasso sus Pinturas?',
+                    respuesta: 'Picasso'
+                 });
+      Quiz.create({ pregunta: '¿Cuál es el fruto del roble?',
+                    respuesta: 'Bellota'
+                 });
+      Quiz.create({ pregunta: '¿En que provincia se encuentra el lago mas grande de origen gracial?',
+                    respuesta: 'Zamora'
+                 });
       Quiz.create({ pregunta: '¿Cual es la capital de Portugal?',
                     respuesta: 'Lisboa'
-                 });
+                 })
        
       .then(function(){console.log('Base de datos inicializada')});
     };
