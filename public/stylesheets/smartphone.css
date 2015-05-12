@@ -8,6 +8,8 @@ body             { font-size: xx-large; }
 input, button    { font-size: x-large; }
 footer           { font-size: large; }
 
+nav span { margin: 0px 10px 0px 0px;}
+#ErrorMsgs { color: #f61; font-size:smaler}
 
 h1 { color: ;
      text-align: center;
