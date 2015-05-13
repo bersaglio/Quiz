@@ -30,11 +30,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 
-app.use(function(req,res,next){
-    if(!req.path.match(/\/login|\/logout/)){
+app.use(function(req, res, next){
+  
+    if(!req.path.match(/\/login|\/logout/)) {
         req.session.redir = req.path;
     }
-
     res.locals.session = req.session;
     next();
 });
