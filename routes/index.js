@@ -5,6 +5,8 @@ var quizController = require('../controllers/quiz_controller');
 var commentController = require('../controllers/comment_controller');
 var sessionController = require('../controllers/session_controller');
 var statisticsController = require('../controllers/statistics_controller');
+var userController = require('../controllers/user_controller');
+
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -14,11 +16,19 @@ router.get('/', function(req, res) {
 // Autoload de comando con :quizId
 router.param('quizId', quizController.load);
 router.param('commentId', commentController.load);
+router.param('userId', userController.load);
 
 //Definicion de rutas de sesion
 router.get('/login', sessionController.new);
 router.post('/login', sessionController.create);
 router.get('/logout', sessionController.destroy);
+
+// Definición de rutas de cuenta
+router.get('/user',  userController.new);     // formulario sign un
+router.post('/user',  userController.create);     // registrar usuario
+router.get('/user/:userId(\\d+)/edit',  sessionController.loginRequired, userController.edit);     // editar información de cuenta
+router.put('/user/:userId(\\d+)',  sessionController.loginRequired, userController.update);     // actualizar información de cuenta
+router.delete('/user/:userId(\\d+)',  sessionController.loginRequired, userController.destroy);     // borrar cuenta
 
 
 router.get('/quizes/statistics', statisticsController.load);

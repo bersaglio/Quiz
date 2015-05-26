@@ -43,8 +43,8 @@ var User = sequelize.import(user_path);
 Comment.belongsTo(Quiz);
 Quiz.hasMany(Comment);
 
-Quiz.belongsTo(User);
-User.hasMany(Quiz);
+// Quiz.belongsTo(User);
+// User.hasMany(Quiz);
 
 
 // exportar tablas
