@@ -83,6 +83,11 @@ exports.answer = function(req, res){
 
 //get /quizes
 exports.index = function(req, res){
+     var options = {};
+      if(req.user){
+      options.where = {UserId: req.user.id}
+     }
+
     if(req.query.search){
         models.Quiz.findAll({where: ["pregunta like ?", '%'+req.query.search+'%'], order: 'pregunta ASC'})
         .then(function(quizes){
