@@ -35,56 +35,56 @@ var Quiz = sequelize.import(quiz_path);
 var comment_path = path.join(__dirname,'comment');
 var Comment = sequelize.import(comment_path);
 
+// Importar definicion de la tabla Comment
+var user_path = path.join(__dirname,'user');
+var User = sequelize.import(user_path);
+
 
 Comment.belongsTo(Quiz);
 Quiz.hasMany(Comment);
+
+Quiz.belongsTo(User);
+User.hasMany(Quiz);
 
 
 // exportar tablas
 exports.Quiz = Quiz; 
 exports.Comment = Comment; 
+exports.User = User;
 
 
-// sequelize.sync() inicializa tabla de preguntas en DB
-sequelize.sync().then(function() {
-  // success(..) ejecuta el manejador una vez creadas las tabas de la DB
-  Quiz.count().then(function (count){
-    if(count === 0) {   // la tabla se inicializa solo si está vacía
-      Quiz.create({ pregunta: '¿Cual es la capital de Italia?',
-                    respuesta: 'Roma'
-                 });
-      Quiz.create({ pregunta: '¿Cuántas manos tiene un caballo?',
-                    respuesta: 'Dos'
-                 });
-      Quiz.create({ pregunta: '¿Qué instrumento musical tiene nombre y forma geométricos?',
-                    respuesta: 'Triángulo'
-                 });
-      Quiz.create({ pregunta: '¿Cuáles son las dos primeras palabras de la Biblia?',
-                    respuesta: 'Al principio'
-                 });
-      Quiz.create({ pregunta: '¿Quién escribió "El Diario de Ana Frank"?',
-                    respuesta: 'Ana Frank'
-                 });
-      Quiz.create({ pregunta: '¿Cómo se llaman las crías de la mula?',
-                    respuesta: 'No tiene'
-                 });
-      Quiz.create({ pregunta: '¿Qué isla del Caribe tiene nombre de flor?',
-                    respuesta: 'Margarita'
-                 });
-      Quiz.create({ pregunta: '¿Con qué nombre firmaba Pablo Picasso sus Pinturas?',
-                    respuesta: 'Picasso'
-                 });
-      Quiz.create({ pregunta: '¿Cuál es el fruto del roble?',
-                    respuesta: 'Bellota'
-                 });
-      Quiz.create({ pregunta: '¿En que provincia se encuentra el lago mas grande de origen gracial?',
-                    respuesta: 'Zamora'
-                 });
-      Quiz.create({ pregunta: '¿Cual es la capital de Portugal?',
-                    respuesta: 'Lisboa'
-                 })
-       
-      .then(function(){console.log('Base de datos inicializada')});
+///sequelize.sync() crea e inicializa tabla de preguntas en DB
+sequelize.sync().then(function(){
+  //then(..) ejecuta el manejador una vez creada la tabla
+  User.count().then(function(count){
+    if (count === 0){
+            User.bulkCreate(
+                [ {username: 'admin', password: '1234', isAdmin: true},
+                  {username: 'pepe', password:'5678'} // isAdmin por defecto false
+                ]
+            ).then(function(){
+                console.log('Base de datos (tabla user) inicializada');
+                Quiz.count().then(function (count){
+                    if (count === 0){
+                        Quiz.bulkCreate(
+                           [ {pregunta: '¿Cual es la capital de Italia?',respuesta: 'Roma', UserId:2},
+                             {pregunta: '¿Qué instrumento musical tiene nombre y forma geométricos?',respuesta: 'Triángulo', UserId:2},
+                             {pregunta: '¿Cuáles son las dos primeras palabras de la Biblia?',respuesta:'Al principio', UserId:2},
+                             {pregunta: '¿Cómo se llaman las crías de la mula?',respuesta: 'No tiene', UserId:2},
+                             {pregunta: '¿Qué isla del Caribe tiene nombre de flor?',respuesta: 'Margarita', UserId:2},
+                             {pregunta: '¿Cual es la capital de Portugal?',respuesta: 'Lisboa', UserId:2},
+                             {pregunta: '¿Cuántas manos tiene un caballo?', respuesta: 'Dos', UserId:2} 
+                             ]
+                        ).then(function(){console.log('Base de datos inicializada')});
+                    };
+                });
+            });
     };
   });
 });
+
+
+
+
+
+    

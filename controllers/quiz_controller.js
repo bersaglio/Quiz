@@ -27,18 +27,19 @@ exports.new = function(req, res){
 
 // POST /quizes/create
 exports.create=function(req, res){
-
+  req.body.quiz.UserId = req.session.user.id;
   var quiz = models.Quiz.build( req.body.quiz );
 
   quiz.validate().then(function(err){
     if(err){
       res.render('quizes/new', {quiz: quiz, errors: err.errors, title: 'Crear'});
     }else{
-      quiz.save({fields: ["pregunta", "respuesta", "UserId"]}).then(function(){
-      res.redirect('/quizes');
-    }) 
+      quiz
+      .save({fields: ["pregunta", "respuesta", "UserId"]})
+      .then(function(){ res.redirect('/quizes')}) 
     }
-    });
+    
+  }).catch(function(error){next(error)});
 };
 
 
@@ -105,4 +106,10 @@ exports.destroy = function(req,res){
   req.quiz.destroy().then( function(){
     res.redirect('/quizes');
   }).catch(function(error){next(error);});
+};
+
+//GET /author
+exports.author = function(req,res){
+  res.render('quizes/author', { quiz: req.quiz, errors: [] }); 
+
 };
