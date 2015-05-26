@@ -7,7 +7,7 @@ var commentController = require('../controllers/comment_controller');
 var sessionController = require('../controllers/session_controller');
 var statisticsController = require('../controllers/statistics_controller');
 var userController = require('../controllers/user_controller');
-
+var favouritesController = require('../controllers/favourites_controller');
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -44,6 +44,10 @@ router.post('/quizes/create',              sessionController.loginRequired, mult
 router.get('/quizes/:quizId(\\d+)/edit', 	sessionController.loginRequired,quizController.ownershipRequired, quizController.edit);
 router.put('/quizes/:quizId(\\d+)',        sessionController.loginRequired, quizController.ownershipRequired, multer({ dest: './public/media/'}), quizController.update);
 router.delete('/quizes/:quizId(\\d+)', 		sessionController.loginRequired,quizController.ownershipRequired, quizController.destroy);
+
+router.get('/user/:userId(\\d+)/favourites',  favouritesController.index);
+router.put('/user/:userId(\\d+)/favourites/:quizId(\\d+)',  favouritesController.select);
+router.delete('/user/:userId(\\d+)/favourites/:quizId(\\d+)',  favouritesController.quit);
 
 router.get('/quizes/:quizId(\\d+)/comments/new', commentController.new);
 router.post('/quizes/:quizId(\\d+)/comments', commentController.create);

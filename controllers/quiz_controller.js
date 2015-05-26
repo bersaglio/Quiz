@@ -81,23 +81,32 @@ exports.answer = function(req, res){
 };
 
 
-//get /quizes
-exports.index = function(req, res){
-     var options = {};
-      if(req.user){
-      options.where = {UserId: req.user.id}
-     }
+// GET /quizes
+exports.index = function(req, res, next){
+    
+    var options = {};
+    if (req.user){ //Si queremos ir a mis preguntas sólo se mostrarán aquellas que pertenezcan al usuario
+        options.where = {UserId: req.user.id}
+    } 
 
     if(req.query.search){
-        models.Quiz.findAll({where: ["pregunta like ?", '%'+req.query.search+'%'], order: 'pregunta ASC'})
+        models.Quiz.findAll({where: ["pregunta like ?", '%'+req.query.search+'%'], order: 'pregunta'})
         .then(function(quizes){
              res.render('quizes/index.ejs', {quizes: quizes, title: 'Listado', errors: [] })}).catch(function(error) { next(error);});
-    }else{
-    models.Quiz.findAll().then(function(quizes){
-        res.render('quizes', {quizes: quizes, errors:[]});
-    }).catch(function(error){ next(error);})
-}
-    
+            
+    }else{ //
+        options.include = {model: models.User, as: "Seguidores"}
+        models.Quiz.findAll(options).then(function(quizes){ 
+            
+            
+            if(req.session.user){
+                quizes.forEach(function(quiz){
+                    quiz.selected = quiz.Seguidores.some(function(seguidor) {
+                        return seguidor.id == req.session.user.id}); 
+            });}
+            res.render('quizes/index.ejs', {quizes: quizes, errors: []});
+        }).catch(function(error){next(error);})
+    }
 };
 
 exports.edit = function(req, res){
