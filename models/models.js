@@ -70,12 +70,9 @@ sequelize.sync().then(function(){
                     if (count === 0){
                         Quiz.bulkCreate(
                            [ {pregunta: '¿Cual es la capital de Italia?',respuesta: 'Roma', UserId:2},
-                              {pregunta: '¿Qué instrumento musical tiene nombre y forma geométricos?',respuesta: 'Triángulo', UserId:2},
-                              {pregunta: '¿Cuáles son las dos primeras palabras de la Biblia?',respuesta:'Al principio', UserId:2},
-                              {pregunta: '¿Cómo se llaman las crías de la mula?',respuesta: 'No tiene', UserId:2},
+                              {pregunta: '¿Qué número no puede ser representado con números romanos?',respuesta: '0', UserId:2},
+                              {pregunta: '¿Cómo se conoce vulgarmente el encéfalo?',respuesta:'Sesos', UserId:2},
                               {pregunta: '¿Qué isla del Caribe tiene nombre de flor?',respuesta: 'Margarita', UserId:2},
-                              {pregunta: '¿Cual es la capital de Portugal?',respuesta: 'Lisboa', UserId:2},
-                             {pregunta: '¿Cuántas manos tiene un caballo?', respuesta: 'Dos', UserId:2} 
                              ]
                         ).then(function(){console.log('Base de datos inicializada')});
                     };

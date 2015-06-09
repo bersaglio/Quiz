@@ -28,7 +28,7 @@ h1 { color: ;
      background-image: url(fondo.png);
         }
 
-h2 { color: #8A0808;
+h2 { color: #0040FF;
      text-align: center;
      font-style: oblique;
      font-weight: 900;
@@ -58,7 +58,7 @@ footer{
      font-family: trebuchet, georgia, serif;
      padding: 0%;
      font-size: 200%;
-     background:#8A0808 ;
+     background:#0040FF;
      border-radius: 20px;
    }
 
@@ -68,7 +68,7 @@ footer{
     border-radius:20px;
     border:1px;
     padding:10px;
-    border-color:#8A0808 ;
+    border-color:#0040FF ;
   }
   .perfil th {
     border:1px;
@@ -89,7 +89,7 @@ footer{
      font-family: trebuchet, georgia, serif;
      padding: 0%;
      font-size: 200%;
-     background:#8A0808 ;
+     background:#0040FF ;
      border-radius: 20px;
    }
 .fondo{
